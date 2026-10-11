@@ -1,2 +1,2 @@
 welcome:
-  join: "<gold>Welcome <player>! You are in <player:world> at <player:location>."
+  join: "<gold>Welcome {player}! You are in {player.world} at {player.location}."
