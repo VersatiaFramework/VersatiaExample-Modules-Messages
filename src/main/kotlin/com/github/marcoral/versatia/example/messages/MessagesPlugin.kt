@@ -1,6 +1,6 @@
 package com.github.marcoral.versatia.example.messages
 
-import com.github.marcoral.versatia.EventType
+import com.github.marcoral.versatia.Phase
 import com.github.marcoral.versatia.FriendlyName
 import com.github.marcoral.versatia.VersatiaPlugin
 import com.github.marcoral.versatia.lifecycle.AutoInvoke
@@ -16,7 +16,7 @@ import net.kyori.adventure.text.Component.text
 @FriendlyName("shop")
 class MessagesPlugin : VersatiaPlugin() {
     /** Runs at start and at `/versatia reload shop`; the bank was reloaded just before, so an edited file shows here. */
-    @AutoInvoke(EventType.PLUGIN_RELOAD_OR_START)
+    @AutoInvoke(Phase.PLUGIN_RELOAD_OR_START)
     fun announce(messages: Messages) {
         componentLogger.info(messages["shop.open"].get(arg("offers", 3)))
         componentLogger.info(messages["shop.offer"].get(arg("offer", Offer("Diamond", Price(5)))))
@@ -25,7 +25,7 @@ class MessagesPlugin : VersatiaPlugin() {
     }
 
     /** Runs once: registrations on `Text` are kept, and they apply to this plugin's messages too. */
-    @AutoInvoke(EventType.PLUGIN_START_ONLY)
+    @AutoInvoke(Phase.PLUGIN_START_ONLY)
     fun describe(text: Text, messages: Messages) {
         // A type this plugin does not own is described here; its own types describe themselves (see Offer.kt)
         text.present<Duration> { duration ->

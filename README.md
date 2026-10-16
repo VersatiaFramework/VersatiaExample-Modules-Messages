@@ -24,12 +24,13 @@ sample sale made through [`Shop.kt`](src/main/kotlin/com/github/marcoral/versati
 ## Things to try
 
 - Edit `plugins/VersatiaExample-Modules-Messages/messages/shop.yml` on the server and run
-  `/versatia reload shop`: the new text is logged, nothing in the plugin knows about reloading.
-- Break the YAML and reload: the reload fails with `Plugin ... failed to reload` naming the file,
+  `/versatia reload shop`: the messages `announce()` logs show the new text, nothing in the plugin knows about reloading.
+- Break the YAML and reload: the reload fails with `shop failed to reload: messages/shop.yml is not valid YAML at line ...`,
   and the previous messages stay in use.
-- Write `{offer.colour}` in `shop.offer` and reload: the reload fails with
-  `{offer} has no property "colour"; it has: item, price`. Write `{ofer}`:
-  `No argument "ofer"; the arguments are: offer`. Braces that name nothing known, such as `{}` or
+- Write `{offer.colour}` in `shop.offer` and reload: `announce()` renders it at reload, so the
+  reload fails with `{offer} has no property "colour"; it has: item, price`. Write `{ofer}`:
+  `No argument "ofer"; the arguments are: offer`. The module does not check braces when it loads a
+  file, so a message rendered only later fails only then. Braces that name nothing known, such as `{}` or
   `{ x }`, stay plain text.
 - Ask for `messages["shop.byu"]`: `Plugin VersatiaExample-Modules-Messages has no message "shop.byu";
   the messages under "shop" are: shop.open, shop.offer, shop.restock, shop.bought, shop.closed`.
