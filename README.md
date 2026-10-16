@@ -1,6 +1,6 @@
 # VersatiaExample-Modules-Messages
 
-Messages read from YAML files under `messages/`, reloaded with the plugin, sent with runtime arguments: inject `Messages` from the Messages module and write `messages["shop.bought"].send(player, arg("item", stack))`. The text decides what to show of an argument, `{offer}`, `{offer.price.coins}`, `{player.location}`, and the plugin's own `Text` describes the types it shows.
+Messages read from YAML files under `messages/`, reloaded with the plugin, sent with runtime arguments: inject `Messages` from the Messages module and write `messages["shop.bought"].send(player, arg("player", player), arg("item", stack), arg("price", 5))`. The text decides what to show of an argument, `{offer}`, `{offer.price.coins}`, `{player.location}`, and the plugin's own `Text` describes the types it shows.
 
 Part of the [Versatia examples](https://github.com/VersatiaFramework/VersatiaExamples); documentation: [Messages module](https://versatiaframework.github.io/VersatiaDocs/docs/modules/messages).
 
@@ -18,7 +18,8 @@ New stock in 3 min (180 s).
 Chat stays text: <red>not red</red>
 ```
 
-A player joining is greeted with their name, world and position.
+A player joining is greeted with their name, world and position, then sees `shop.bought` for a
+sample sale made through [`Shop.kt`](src/main/kotlin/com/github/marcoral/versatia/example/messages/Shop.kt).
 
 ## Things to try
 
@@ -38,7 +39,9 @@ A player joining is greeted with their name, world and position.
 Requires JDK 21 and VersatiaStarter with what it exports in your local Maven repository
 (`./gradlew publishToMavenLocal` in each checkout; see
 [Building the framework](https://versatiaframework.github.io/VersatiaDocs/docs/contributing/building)); running it requires a
-Paper 1.21.4 server with VersatiaCore and VersatiaModule-Messages installed.
+Paper 1.21.4 server with VersatiaCore and VersatiaModule-Messages installed, and the
+[CommandAPI](https://commandapi.jorel.dev) 12.x plugin for `/versatia reload` (without it, a
+plugin can still reload itself with `versatiaReload()`).
 
 ```bash
 ./gradlew build
